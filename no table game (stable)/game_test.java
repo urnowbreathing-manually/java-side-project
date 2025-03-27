@@ -25,6 +25,7 @@ public class game_test {
 	public static void enemyAI(JPanel player, JPanel enemy){
 		if(enemy.getX() < player.getX()){
 			enemy.setBounds(enemy.getX() + 50, enemy.getY(), 50, 50);
+		//Else the enemy will go to the 
 		} else if(enemy.getX() > player.getX()){
 			enemy.setBounds(enemy.getX() - 50, enemy.getY(), 50, 50);
 		}
