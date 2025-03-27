@@ -12,78 +12,80 @@ public class tableTest{
 	int rowNonStatic = 4;
 	int colNonStatic = 5;
 
-	public int rowIterate(int moveKeys){
-		int row = 4;
-		switch(moveKeys){
-			case 1:
-				row--;
-				break;
-			case 2:
-				row++;
-				break;
-		}
-		return row;
-	}
+	// public int rowIterate(int moveKeys){
+	// 	tableTest rowStatic = new tableTest();
+	// 	rowStatic.rowNonStatic;
 
-	public int colIterate(int moveKeys){
-		int col = 5;
-		switch(moveKeys){
-			case 3:
-				col--;
-				break;
-			case 4:
-				col++;
-				break;
+	// 	switch(moveKeys){
+	// 		case 1:
+	// 			rowStatic.rowNonStatic;--;
+	// 			break;
+	// 		case 2:
+	// 			rowStatic.rowNonStatic;++;
+	// 			break;
+	// 	}
+	// 	return 1;
+	// }
 
-		}
-		return col;
-	}
+	// public int colIterate(int moveKeys){
+	// 	tableTest colStatic = new tableTest();
 
-	public static void playerMovement(int moveKeys, JTable levelGrid, JTextField lastMove){
-		tableTest rowStatic = new tableTest();
-		tableTest colStatic = new tableTest();
+	// 	switch(moveKeys){
+	// 		case 3:
+	// 			colStatic.colNonStatic--;
+	// 			break;
+	// 		case 4:
+	// 			colStatic.colNonStatic++;
+	// 			break;
 
-		int row = rowStatic.rowNonStatic;
-		int col = colStatic.colNonStatic;
+	// 	}
+	// 	return 1;
+	// }
 
+	public static void playerMovement(int moveKeys, JTable levelGrid, JTextField lastMove, tableTest col, tableTest row){
 		switch (moveKeys){
 			case 1: //Up button
-				levelGrid.setValueAt(0, row, col);
-				levelGrid.setValueAt(10, row - 1, col);
-				rowStatic.rowNonStatic--;
-				System.out.println("Row: " + row + " Col: " + col);
+				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
+				row.rowNonStatic -= 1;
+				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
+				// System.out.println("Row: " + row + " Col: " + col);
 				lastMove.setText("UP");
 				break;
 
 			case 2: //Down button
-				levelGrid.setValueAt(0, row, col);
-				levelGrid.setValueAt(10, row + 1, col);
-				rowStatic.rowNonStatic++;
-				System.out.println("Row: " + row + " Col: " + col);
+				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
+				row.rowNonStatic += 1;
+				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
+				// System.out.println("Row: " + row + " Col: " + col);
 				lastMove.setText("DOWN");
 				break;
 
 			case 3: //Left button
-				levelGrid.setValueAt(0, row, col);
-				levelGrid.setValueAt(10, row, col - 1);
-				colStatic.colNonStatic--;
-				System.out.println("Row: " + row + " Col: " + col);
+				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
+				row.colNonStatic -= 1;
+				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
+				// System.out.println("Row: " + row + " Col: " + col);
 				lastMove.setText("LEFT");			
 				break;
 
 			case 4: //Right button
-				levelGrid.setValueAt(0, row, col);
-				levelGrid.setValueAt(10, row, col + 1);
-				colStatic.colNonStatic++;
-				System.out.println("Row: " + row + " Col: " + col);
+				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
+				row.colNonStatic += 1;
+				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
+				// System.out.println("Row: " + row + " Col: " + col);
 				lastMove.setText("RIGHT");
 				break;
 			}
 	}
 
 	public static void main(String[] args) {
-
 		JFrame mainFrame = new JFrame("Table Test");
+
+		tableTest rowStatic = new tableTest();
+		tableTest colStatic = new tableTest();
+
+		int row = rowStatic.rowNonStatic;
+		int col = colStatic.colNonStatic;
 
 		JTable levelGrid = new JTable(9, 12);
 		levelGrid.setBounds(0, 0, 600, 450);
@@ -105,7 +107,7 @@ public class tableTest{
 		up_button.setBounds(50, 0, 50, 50);
 		up_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(1, levelGrid, lastMove);
+				playerMovement(1, levelGrid, lastMove, rowStatic, colStatic);
 				
 			}
 		});
@@ -115,7 +117,7 @@ public class tableTest{
 		down_button.setBounds(50, 50, 50, 50);
 		down_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(2, levelGrid, lastMove);
+				playerMovement(2, levelGrid, lastMove, rowStatic, colStatic);
 				
 			}
 		});
@@ -125,7 +127,7 @@ public class tableTest{
 		left_button.setBounds(0, 50, 50, 50);
 		left_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(3, levelGrid, lastMove);
+				playerMovement(3, levelGrid, lastMove, rowStatic, colStatic);
 				
 			}
 		});
@@ -135,7 +137,7 @@ public class tableTest{
 		right_button.setBounds(100, 50, 50, 50);
 		right_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(4, levelGrid, lastMove);
+				playerMovement(4, levelGrid, lastMove, rowStatic, colStatic);
 				
 			}
 		});
