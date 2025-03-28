@@ -37,11 +37,6 @@ public class game_test {
 		}
 	}
 
-	//Method for processing player movement each turn
-	//After player moves, enemyAI() method is called
-	//Allowing enemy to move
-	//Afterwards, coords at the top right corner is updated
-	//to match player and enemy coords
 	public static void HandleButton(int btn, JTextField pbx, JTextField pby, JTextField ebx, JTextField eby, JPanel player, JPanel enemy) {
 		switch (btn) {
 		case 1: //Left button
@@ -49,28 +44,24 @@ public class game_test {
 				player.setBounds(player.getX() - 50, player.getY(), 50, 50);
 			}
 			coordsDisp(pbx, pby, ebx, eby, player, enemy);
-			enemyAI(player, enemy);
 			break;
 		case 2: //Right button
 			if (player.getX() < 550){
 				player.setBounds(player.getX() + 50, player.getY(), 50, 50);
 			}
 			coordsDisp(pbx, pby, ebx, eby, player, enemy);
-			enemyAI(player, enemy);
 			break;
 		case 3: //Down button
 			if (player.getY() < 400){
 				player.setBounds(player.getX(), player.getY() + 50, 50, 50);
 			}
 			coordsDisp(pbx, pby, ebx, eby, player, enemy);
-			enemyAI(player, enemy);
 			break;
 		case 4: //Up button
 			if (player.getY() > 0){
 				player.setBounds(player.getX(), player.getY() - 50, 50, 50);
 			}
 			coordsDisp(pbx, pby, ebx, eby, player, enemy);
-			enemyAI(player, enemy);
 			break;
 		}
 	}
