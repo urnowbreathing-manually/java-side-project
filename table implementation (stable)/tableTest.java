@@ -12,73 +12,68 @@ public class tableTest{
 	int rowNonStatic = 4;
 	int colNonStatic = 5;
 
-	// public int rowIterate(int moveKeys){
-	// 	tableTest rowStatic = new tableTest();
-	// 	rowStatic.rowNonStatic;
-
-	// 	switch(moveKeys){
-	// 		case 1:
-	// 			rowStatic.rowNonStatic;--;
-	// 			break;
-	// 		case 2:
-	// 			rowStatic.rowNonStatic;++;
-	// 			break;
-	// 	}
-	// 	return 1;
-	// }
-
-	// public int colIterate(int moveKeys){
-	// 	tableTest colStatic = new tableTest();
-
-	// 	switch(moveKeys){
-	// 		case 3:
-	// 			colStatic.colNonStatic--;
-	// 			break;
-	// 		case 4:
-	// 			colStatic.colNonStatic++;
-	// 			break;
-
-	// 	}
-	// 	return 1;
-	// }
-
-	public static void playerMovement(int moveKeys, JTable levelGrid, JTextField lastMove, tableTest col, tableTest row){
+	public static void playerMovement(int moveKeys, JTable levelGrid, JTextField lastMove, tableTest pos){
 		switch (moveKeys){
 			case 1: //Up button
-				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
-				row.rowNonStatic -= 1;
-				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
-				// System.out.println("Row: " + row + " Col: " + col);
-				lastMove.setText("UP");
+				if(pos.rowNonStatic > 0){
+					levelGrid.setValueAt("0", pos.rowNonStatic, pos.colNonStatic);
+					pos.rowNonStatic -= 1;
+					levelGrid.setValueAt("PLAYER", pos.rowNonStatic, pos.colNonStatic);
+					// System.out.println("Row: " + row + " Col: " + col);
+					lastMove.setText("UP");
+				}
 				break;
 
 			case 2: //Down button
-				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
-				row.rowNonStatic += 1;
-				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
-				// System.out.println("Row: " + row + " Col: " + col);
-				lastMove.setText("DOWN");
+				if(pos.rowNonStatic < 8){	
+					levelGrid.setValueAt("0", pos.rowNonStatic, pos.colNonStatic);
+					pos.rowNonStatic += 1;
+					levelGrid.setValueAt("PLAYER", pos.rowNonStatic, pos.colNonStatic);
+					// System.out.println("Row: " + row + " Col: " + col);
+					lastMove.setText("DOWN");
+				}
 				break;
 
 			case 3: //Left button
-				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
-				row.colNonStatic -= 1;
-				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
-				// System.out.println("Row: " + row + " Col: " + col);
-				lastMove.setText("LEFT");			
-				break;
+				if(pos.colNonStatic > 0){
+					levelGrid.setValueAt("0", pos.rowNonStatic, pos.colNonStatic);
+					pos.colNonStatic -= 1;
+					levelGrid.setValueAt("PLAYER", pos.rowNonStatic, pos.colNonStatic);
+					// System.out.println("Row: " + row + " Col: " + col);
+					lastMove.setText("LEFT");			
+				}
+					break;
 
 			case 4: //Right button
-				levelGrid.setValueAt(0, row.rowNonStatic, row.colNonStatic);
-				row.colNonStatic += 1;
-				levelGrid.setValueAt(10, row.rowNonStatic, row.colNonStatic);
-				// System.out.println("Row: " + row + " Col: " + col);
-				lastMove.setText("RIGHT");
+				if(pos.colNonStatic < 11){
+					levelGrid.setValueAt("0", pos.rowNonStatic, pos.colNonStatic);
+					pos.colNonStatic += 1;
+					levelGrid.setValueAt("PLAYER", pos.rowNonStatic, pos.colNonStatic);
+					// System.out.println("Row: " + row + " Col: " + col);
+					lastMove.setText("RIGHT");
+				}
 				break;
 			}
 	}
 
+	public static void enemyMovement(){
+
+	}
+
 	public static void main(String[] args) {
+		String map_row[][] = 
+{{"0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}};
+
+	String map_col[] = {"0", "0", "0", "0", "0", "0", "11", "0", "0", "0", "0", "0"};
+
 		JFrame mainFrame = new JFrame("Table Test");
 
 		tableTest rowStatic = new tableTest();
@@ -87,7 +82,7 @@ public class tableTest{
 		int row = rowStatic.rowNonStatic;
 		int col = colStatic.colNonStatic;
 
-		JTable levelGrid = new JTable(9, 12);
+		JTable levelGrid = new JTable(map_row.length, map_col.length);
 		levelGrid.setBounds(0, 0, 600, 450);
 		levelGrid.setRowHeight(50);
 		levelGrid.setBackground(Color.decode("#6F6F6F"));
@@ -107,7 +102,8 @@ public class tableTest{
 		up_button.setBounds(50, 0, 50, 50);
 		up_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(1, levelGrid, lastMove, rowStatic, colStatic);
+				playerMovement(1, levelGrid, lastMove, rowStatic);
+				enemyMovement();
 				
 			}
 		});
@@ -117,8 +113,8 @@ public class tableTest{
 		down_button.setBounds(50, 50, 50, 50);
 		down_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(2, levelGrid, lastMove, rowStatic, colStatic);
-				
+				playerMovement(2, levelGrid, lastMove, rowStatic);
+				enemyMovement();
 			}
 		});
 
@@ -127,8 +123,8 @@ public class tableTest{
 		left_button.setBounds(0, 50, 50, 50);
 		left_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(3, levelGrid, lastMove, rowStatic, colStatic);
-				
+				playerMovement(3, levelGrid, lastMove, rowStatic);
+				enemyMovement();
 			}
 		});
 
@@ -137,8 +133,8 @@ public class tableTest{
 		right_button.setBounds(100, 50, 50, 50);
 		right_button.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerMovement(4, levelGrid, lastMove, rowStatic, colStatic);
-				
+				playerMovement(4, levelGrid, lastMove, rowStatic);
+				enemyMovement();
 			}
 		});
 
@@ -166,7 +162,7 @@ public class tableTest{
 		mainFrame.getContentPane().setBackground(Color.decode("#404040"));
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		mapGeneration(levelGrid);
+		mapGeneration(levelGrid, rowStatic, map_row, map_col);
 
 	}
 
@@ -175,14 +171,26 @@ public class tableTest{
 	//100 = enemy, 1000 = exit
 	//110 = enemy hits player
 	//1010 = player gets to exit 
-	public static void mapGeneration(JTable levelGrid){
-		for(int i = 0; i <= 8; i++){
-			for(int j = 0; j <= 11; j++){
-				levelGrid.setValueAt(0, i, j);
+	public static void mapGeneration(JTable levelGrid, tableTest pos, String row[][], String col[]){
+		for(int i = 0; i < row.length; i++){
+			for(int j = 0; j < col.length; j++){
+				levelGrid.setValueAt("0", i, j);
+
+				if (i == pos.rowNonStatic && j == pos.colNonStatic) {
+					levelGrid.setValueAt("PLAYER", i, j);
+				}
 			}
 		}
 
-		levelGrid.setValueAt(10, 4, 5);
+		Random randomizer = new Random();
+
+		for(int k = 0; k < 3; k++){
+		int e_row = randomizer.nextInt(8);
+		int e_col = randomizer.nextInt(10);
+		levelGrid.setValueAt("ENEMY", e_row, e_col);
+		}
+
+
 
 	}
 
