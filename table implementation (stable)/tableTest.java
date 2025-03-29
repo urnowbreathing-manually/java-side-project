@@ -14,7 +14,7 @@ public class tableTest{
 	int playerPosCol = 5;
 
 	// handles player movement after the movement buttons were pressed
-	public static void playerMovement(int moveKeys, JTable lvlGrid, JTextField lastMove, tableTest lvlGridIndex){
+	public static void playerMovement(int moveKeys, JTable lvlGrid, JTextField plm_read, tableTest lvlGridIndex, JTextField ppr_read, JTextField ppc_read){
 		switch (moveKeys){
 			case 1: //Up button
 				if(lvlGridIndex.playerPosRow > 0){
@@ -22,7 +22,8 @@ public class tableTest{
 					lvlGridIndex.playerPosRow -= 1;
 					lvlGrid.setValueAt("PLAYER", lvlGridIndex.playerPosRow, lvlGridIndex.playerPosCol);
 					// System.out.println("Row: " + row + " Col: " + col);
-					lastMove.setText("UP");
+					plm_read.setText("UP");
+					ppr_read.setText("ROW: " + lvlGridIndex.playerPosRow);
 				}
 				break;
 
@@ -32,7 +33,8 @@ public class tableTest{
 					lvlGridIndex.playerPosRow += 1;
 					lvlGrid.setValueAt("PLAYER", lvlGridIndex.playerPosRow, lvlGridIndex.playerPosCol);
 					// System.out.println("Row: " + row + " Col: " + col);
-					lastMove.setText("DOWN");
+					plm_read.setText("DOWN");
+					ppr_read.setText("ROW: " + lvlGridIndex.playerPosRow);
 				}
 				break;
 
@@ -42,7 +44,8 @@ public class tableTest{
 					lvlGridIndex.playerPosCol -= 1;
 					lvlGrid.setValueAt("PLAYER", lvlGridIndex.playerPosRow, lvlGridIndex.playerPosCol);
 					// System.out.println("Row: " + row + " Col: " + col);
-					lastMove.setText("LEFT");			
+					plm_read.setText("LEFT");	
+					ppc_read.setText("COL: " + lvlGridIndex.playerPosCol);
 				}
 					break;
 
@@ -52,7 +55,8 @@ public class tableTest{
 					lvlGridIndex.playerPosCol += 1;
 					lvlGrid.setValueAt("PLAYER", lvlGridIndex.playerPosRow, lvlGridIndex.playerPosCol);
 					// System.out.println("Row: " + row + " Col: " + col);
-					lastMove.setText("RIGHT");
+					plm_read.setText("RIGHT");
+					ppc_read.setText("COL: " + lvlGridIndex.playerPosCol);
 				}
 				break;
 			}
@@ -104,16 +108,24 @@ public class tableTest{
 			debugInfo.setLayout(null);
 			debugInfo.setBackground(Color.decode("#C7C7C7"));
 
-		// JTextField that saves the last movement button pressed as text
-		JTextField lastMove = new JTextField();
-			lastMove.setBounds(5, 5, 65, 20);
+		// JTextField that saves the player's position row (PPR) as text
+		JTextField ppr_read = new JTextField("ROW: 4");
+			ppr_read.setBounds(5, 5, 65, 20);
+
+		// JTextField that saves the player's position col (PPC) as text
+		JTextField ppc_read = new JTextField("COL: 5");
+			ppc_read.setBounds(75, 5, 65, 20);
+
+		// JTextField that saves the player's last move (PLM) as text
+		JTextField plm_read = new JTextField();
+			plm_read.setBounds(5, 30, 65, 20);
 
 		// Up button
 		JButton up_button = new JButton("W");
 			up_button.setBounds(50, 0, 50, 50);
 			up_button.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					playerMovement(1, lvlGrid, lastMove, lvlGridIndex);
+					playerMovement(1, lvlGrid, plm_read, lvlGridIndex, ppr_read, ppc_read);
 					// enemyMovement(lvlGrid, );
 					
 				}
@@ -124,7 +136,7 @@ public class tableTest{
 			down_button.setBounds(50, 50, 50, 50);
 			down_button.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					playerMovement(2, lvlGrid, lastMove, lvlGridIndex);
+					playerMovement(2, lvlGrid, plm_read, lvlGridIndex, ppr_read, ppc_read);
 					// enemyMovement(lvlGrid, );
 				}
 			});
@@ -134,7 +146,7 @@ public class tableTest{
 			left_button.setBounds(0, 50, 50, 50);
 			left_button.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					playerMovement(3, lvlGrid, lastMove, lvlGridIndex);
+					playerMovement(3, lvlGrid, plm_read, lvlGridIndex, ppr_read, ppc_read);
 					// enemyMovement(lvlGrid, );
 				}
 			});
@@ -144,7 +156,7 @@ public class tableTest{
 			right_button.setBounds(100, 50, 50, 50);
 			right_button.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					playerMovement(4, lvlGrid, lastMove, lvlGridIndex);
+					playerMovement(4, lvlGrid, plm_read, lvlGridIndex, ppr_read, ppc_read);
 					// enemyMovement(lvlGrid, );
 				}
 			});
@@ -157,11 +169,9 @@ public class tableTest{
 			buttonContainer.add(left_button);
 			buttonContainer.add(right_button);
 		mainFrame.add(debugInfo);
-			debugInfo.add(lastMove);
-			// debugInfo.add(pRow);
-			// debugInfo.add(pCol);
-			// debugInfo.add(eRow);
-			// debugInfo.add(eCol);
+			debugInfo.add(ppr_read);
+			debugInfo.add(ppc_read);
+			debugInfo.add(plm_read);
 
 		// Main Frame Settings
 		mainFrame.setSize(600, 590);
@@ -200,9 +210,5 @@ public class tableTest{
 		int e_col = randomizer.nextInt(10);
 		lvlGrid.setValueAt("ENEMY", e_row, e_col);
 		}
-
-
-
 	}
-
 }
