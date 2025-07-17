@@ -75,6 +75,12 @@ public class tableTest{
 
 		//System.out.println("CEM: " + currentEnemyMovement.currentEnemyMovement + " EMD: " + enemyMovementDelay);
 
+		for (int i = 0; i < enemyPos.length; i++) {
+			for (int d = 0; d < enemyPos.length; d++) {
+				lvlGrid.setValueAt("0", enemyPos[i][d], enemyPos[i][d+1]);
+			}
+		}
+
 		if(currentEnemyMovement.currentEnemyMovement == enemyMovementDelay){
 			//System.out.println("CEM: " + currentEnemyMovement.currentEnemyMovement + " EMD: " + enemyMovementDelay);
 			
@@ -189,7 +195,7 @@ public class tableTest{
 		JFrame mainFrame = new JFrame("Table Test");
 
 		// The JTable containing the level grid
-		JTable lvlGrid = new JTable(map_row, map_col);
+		JTable lvlGrid = new JTable(map_row.length, map_col.length);
 			lvlGrid.setBounds(0, 0, 600, 450);
 			lvlGrid.setRowHeight(50);
 			lvlGrid.setBackground(Color.decode("#6F6F6F"));
@@ -306,29 +312,17 @@ public class tableTest{
 		int e_row = 0;
 		int e_col = 0;
 
-		int cycleThroughEnemies = 0;
-		int cycleThroughEnemyPos = 0;
-
 		for(int k = 0; k < enemyAmount; k++){
+
 			do{
 				e_row = randomizer.nextInt(9);
 				e_col = randomizer.nextInt(12);
 			} while(lvlGrid.getValueAt(e_row, e_col).toString() == "WALL");
 
-			enemyPos[cycleThroughEnemies][cycleThroughEnemyPos] = e_row;
-			cycleThroughEnemyPos++;
-			enemyPos[cycleThroughEnemies][cycleThroughEnemyPos] = e_col;
-			cycleThroughEnemyPos--;
-			cycleThroughEnemies++;
-
-			// Vector<Integer> pos = new Vector<Integer>();
-			// pos.push_back(e_row);
-			// pos.push_back(e_col);
-			lvlGrid.setValueAt("ENEMY", e_row, e_col);
+			Vector<Integer> pos = new Vector<Integer>();
+			pos.add(e_row);
+			pos.add(e_col);
 		}
 
-		for(int[] a : enemyPos){
-				System.out.print("[" + a[0] + "," + a[1] + "]" + " ");
-		}
 	}
 }
